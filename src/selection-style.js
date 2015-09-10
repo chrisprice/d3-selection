@@ -1,4 +1,5 @@
 import defaultView from "./defaultView";
+import {apply} from "./selection";
 
 export default function(name, value, priority) {
   var n = arguments.length;
@@ -16,7 +17,7 @@ export default function(name, value, priority) {
   }
 
   function setFunction() {
-    var x = value.apply(this, arguments);
+    var x = apply(value, this, arguments);
     if (x == null) this.style.removeProperty(name);
     else this.style.setProperty(name, x, priority);
   }

@@ -1,3 +1,4 @@
+import {apply} from "./selection";
 import requote from "./requote";
 
 export default function(name, value) {
@@ -23,7 +24,7 @@ export default function(name, value) {
   }
 
   function setFunction() {
-    var i = -1, x = value.apply(this, arguments);
+    var i = -1, x = apply(value, this, arguments);
     while (++i < n) name[i](this, x);
   }
 

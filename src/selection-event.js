@@ -1,4 +1,5 @@
 import requote from "./requote";
+import {apply} from "./selection";
 
 var filterEvents = new Map;
 
@@ -63,7 +64,7 @@ function listenerOf(listener, ancestors, args) {
     while (--i >= 0) args[i << 1] = ancestors[i].__data__;
     event = event1;
     try {
-      listener.apply(ancestors[0], args);
+      apply(listener, ancestors[0], args);
     } finally {
       event = event0;
     }

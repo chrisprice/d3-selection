@@ -1,4 +1,4 @@
-import {Selection} from "./selection";
+import {apply, Selection} from "./selection";
 
 // The selector may either be a selector string (e.g., ".foo")
 // or a function that optionally returns an array of nodes to select.
@@ -33,7 +33,7 @@ export default function(selector) {
       while (++i < n) {
         if (node = nodes[i]) {
           stack[0] = node.__data__, stack[1] = i;
-          subnodes[i] = subnode = selector.apply(node, stack);
+          subnodes[i] = subnode = apply(selector, node, stack);
           subnode._parent = node;
         }
       }

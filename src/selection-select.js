@@ -1,4 +1,4 @@
-import {Selection} from "./selection";
+import {apply, Selection} from "./selection";
 import selectorOf from "./selectorOf";
 
 // The selector may either be a selector string (e.g., ".foo")
@@ -35,7 +35,7 @@ export default function(selector) {
       while (++i < n) {
         if (node = nodes[i]) {
           stack[0] = node.__data__, stack[1] = i;
-          if (subnode = selector.apply(node, stack)) {
+          if (subnode = apply(selector, node, stack)) {
             if ("__data__" in node) subnode.__data__ = node.__data__;
             if (update) update[i] = subnode, delete nodes[i];
             subnodes[i] = subnode;

@@ -1,3 +1,5 @@
+import {apply} from "./selection";
+
 export default function(callback) {
   var depth = this._depth,
       stack = new Array(depth);
@@ -22,7 +24,7 @@ export default function(callback) {
       while (++i < n) {
         if (node = nodes[i]) {
           stack[0] = node.__data__, stack[1] = i;
-          callback.apply(node, stack);
+          apply(callback, node, stack);
         }
       }
     }

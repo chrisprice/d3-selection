@@ -145,12 +145,15 @@ tape("selection.select can select elements (when the originating selection is ne
 tape("selection.select passes the selector function data and index", function(test) {
   var document = jsdom.jsdom("<parent id='one'><child><span><b>1</b></span></child></parent><parent id='two'><child><span><b>2</b></span></child></parent>"),
       results = [],
-      s = d3.selectAll(document.querySelectorAll("parent")).datum(function(d, i) { return "parent-" + i; }).selectAll("child").datum(function(d, i, p, j) { return "child-" + i + "-" + j; }).select("span").select(function() { results.push({this: this, arguments: [].slice.call(arguments)}); });
+      s = d3.selectAll(document.querySelectorAll("parent")).datum(function(d, i) { return "parent-" + i; }).selectAll("child").datum(function(d, i, p, j) { return "child-" + i + "-" + j; }).select("span").select(function() { results.push({this: this, node: d3.node, arguments: [].slice.call(arguments)}); });
+  test.equal(d3.node, null);
   test.equal(document.querySelector("#one").__data__, "parent-0");
   test.equal(document.querySelector("#two").__data__, "parent-1");
   test.equal(results.length, 2);
   test.equal(results[0].this, document.querySelector("#one span"));
+  test.equal(results[0].node, document.querySelector("#one span"));
   test.equal(results[1].this, document.querySelector("#two span"));
+  test.equal(results[1].node, document.querySelector("#two span"));
   test.equal(results[0].arguments.length, 4);
   test.equal(results[0].arguments[0], "child-0-0");
   test.equal(results[0].arguments[1], 0);

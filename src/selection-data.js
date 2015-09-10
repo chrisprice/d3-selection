@@ -1,3 +1,5 @@
+import {apply} from "./selection";
+
 // The value may either be an array or a function that returns an array.
 // An optional key function may be specified to control how data is bound;
 // if no key function is specified, data is bound to nodes by index.
@@ -39,7 +41,7 @@ export default function(value, key) {
       var j = 0,
           before;
 
-      bind(update, enter, exit, value.apply(update._parent, stack));
+      bind(update, enter, exit, apply(value, update._parent, stack));
       n = update.length;
 
       // Now connect the enter nodes to their following update node, such that
@@ -109,7 +111,7 @@ export default function(value, key) {
     for (i = 0; i < nodeLength; ++i) {
       if (node = update[i]) {
         keyStack[0] = node.__data__, keyStack[1] = i;
-        keyValues[i] = keyValue = key.apply(node, keyStack);
+        keyValues[i] = keyValue = apply(key, node, keyStack);
 
         // Is this a duplicate of a key we’ve previously seen?
         // If so, this node is moved to the exit selection.
@@ -130,7 +132,7 @@ export default function(value, key) {
     // Compute the keys for each datum.
     for (i = 0; i < dataLength; ++i) {
       keyStack[0] = data[i], keyStack[1] = i;
-      keyValue = key.apply(update._parent, keyStack);
+      keyValue = apply(key, update._parent, keyStack);
 
       // Is there a node associated with this key?
       // If not, this datum is added to the enter selection.

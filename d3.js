@@ -1,5 +1,6 @@
 import {
   event,
+  node,
   mouse,
   namespace,
   namespaces,
@@ -13,6 +14,7 @@ import {
 
 export default {
   get event() { return event; },
+  get node() { return node; },
   mouse: mouse,
   namespace: namespace,
   namespaces: namespaces,

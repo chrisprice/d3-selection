@@ -16,16 +16,19 @@ tape("selection.event passes the listener function data and index", function(tes
       results = [],
       parent = d3.selectAll(document.querySelectorAll("parent")),
       child = parent.selectAll("child"),
-      s = child.event("foo", function() { results.push({this: this, arguments: [].slice.call(arguments)}); });
+      s = child.event("foo", function() { results.push({this: this, node: d3.node, arguments: [].slice.call(arguments)}); });
   test.equal(results.length, 0);
   parent.datum(function(d, i) { return "parent-" + i; });
   child.datum(function(d, i, p, j) { return "child-" + i + "-" + j; });
   s.dispatch("foo");
+  test.equal(d3.node, null);
   test.equal(document.querySelector("#one").__data__, "parent-0");
   test.equal(document.querySelector("#two").__data__, "parent-1");
   test.equal(results.length, 2);
   test.equal(results[0].this, document.querySelector("#one child"));
+  test.equal(results[0].node, document.querySelector("#one child"));
   test.equal(results[1].this, document.querySelector("#two child"));
+  test.equal(results[1].node, document.querySelector("#two child"));
   test.equal(results[0].arguments.length, 4);
   test.equal(results[0].arguments[0], "child-0-0");
   test.equal(results[0].arguments[1], 0);

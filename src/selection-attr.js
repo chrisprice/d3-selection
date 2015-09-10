@@ -1,4 +1,5 @@
 import namespace from "./namespace";
+import {apply} from "./selection";
 
 export default function(name, value) {
   name = namespace(name);
@@ -27,13 +28,13 @@ export default function(name, value) {
   }
 
   function setFunction() {
-    var x = value.apply(this, arguments);
+    var x = apply(value, this, arguments);
     if (x == null) this.removeAttribute(name);
     else this.setAttribute(name, x);
   }
 
   function setFunctionNS() {
-    var x = value.apply(this, arguments);
+    var x = apply(value, this, arguments);
     if (x == null) this.removeAttributeNS(name.space, name.local);
     else this.setAttributeNS(name.space, name.local, x);
   }

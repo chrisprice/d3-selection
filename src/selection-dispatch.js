@@ -1,4 +1,5 @@
 import defaultView from "./defaultView";
+import {apply} from "./selection";
 
 export default function(type, params) {
 
@@ -7,7 +8,7 @@ export default function(type, params) {
   }
 
   function dispatchFunction() {
-    return dispatchEvent(this, type, params.apply(this, arguments));
+    return dispatchEvent(this, type, apply(params, this, arguments));
   }
 
   return this.each(typeof params === "function" ? dispatchFunction : dispatchConstant);

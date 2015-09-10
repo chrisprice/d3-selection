@@ -1,15 +1,16 @@
 import namespace from "./namespace";
+import {apply} from "./selection";
 import selectorOf from "./selectorOf";
 
 export default function(creator, selector) {
   if (typeof creator !== "function") creator = creatorOf(creator);
 
   function append() {
-    return this.appendChild(creator.apply(this, arguments));
+    return this.appendChild(apply(creator, this, arguments));
   }
 
   function insert() {
-    return this.insertBefore(creator.apply(this, arguments), selector.apply(this, arguments) || null);
+    return this.insertBefore(apply(creator, this, arguments), apply(selector, this, arguments) || null);
   }
 
   return this.select(arguments.length < 2

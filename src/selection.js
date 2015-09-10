@@ -24,6 +24,21 @@ import selection_datum from "./selection-datum";
 import selection_event from "./selection-event";
 import selection_dispatch from "./selection-dispatch";
 
+export var node = null;
+
+export function apply(fn, node1, args) {
+  var node0 = node,
+      value;
+  node = node1;
+  try {
+    value = fn.apply(node1, args);
+  }
+  finally {
+    node = node0;
+  }
+  return value;
+};
+
 // When depth = 1, root = [Node, …].
 // When depth = 2, root = [[Node, …], …].
 // When depth = 3, root = [[[Node, …], …], …]. etc.

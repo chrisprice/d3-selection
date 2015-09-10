@@ -5,12 +5,14 @@ import requote from "./src/requote";
 import select from "./src/select";
 import selectAll from "./src/selectAll";
 import selection from "./src/selection";
+import {node} from "./src/selection";
 import touch from "./src/touch";
 import touches from "./src/touches";
-import {event} from "./src/selection-event"
+import {event} from "./src/selection-event";
 
 export {
   event,
+  node,
   mouse,
   namespace,
   namespaces,

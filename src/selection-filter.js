@@ -1,4 +1,4 @@
-import {Selection} from "./selection";
+import {apply, Selection} from "./selection";
 
 // The filter may either be a selector string (e.g., ".foo")
 // or a function that returns a boolean.
@@ -33,7 +33,7 @@ export default function(filter) {
       while (++i < n) {
         if (node = nodes[i]) {
           stack[0] = node.__data__, stack[1] = i;
-          if (filter.apply(node, stack)) {
+          if (apply(filter, node, stack)) {
             subnodes.push(node);
           }
         }

@@ -1,3 +1,5 @@
+import {apply} from "./selection";
+
 export default function(value) {
   if (!arguments.length) return this.node().textContent;
 
@@ -6,7 +8,7 @@ export default function(value) {
   }
 
   function setFunction() {
-    var v = value.apply(this, arguments);
+    var v = apply(value, this, arguments);
     this.textContent = v == null ? "" : v;
   }
 
