@@ -21,14 +21,15 @@
     "url": "https://github.com/d3/d3-selection.git"
   },
   "scripts": {
-    "pretest": "mkdir -p build && d3-bundler --polyfill-map --format=umd --name=d3 -- d3.js > build/d3.js",
-    "test": "faucet `find test -name '*-test.js'`",
+    "pretest": "mkdirp build && d3-bundler --polyfill-map --format=umd --name=d3 -- d3.js > build/d3.js",
+    "test": "tape test/*-test.js | faucet",
     "prepublish": "npm run test && uglifyjs build/d3.js -c -m -o build/d3.min.js && rm -f build/d3.zip && zip -j build/d3.zip -- LICENSE README.md build/d3.js build/d3.min.js"
   },
   "devDependencies": {
     "d3-bundler": "~0.2.5",
     "faucet": "0.0",
-    "jsdom": "3",
+    "jsdom": "6",
+    "mkdirp": "^0.5.1",
     "tape": "4",
     "uglify-js": "2"
   }
